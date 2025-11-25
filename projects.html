@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Dream Team Automation</title>
+    <meta name="description" content="View Dream Team Automation's portfolio of automation projects including body-in-white systems, weld cells, EOAT, and more.">
+    <meta name="keywords" content="automation projects, body-in-white, weld systems, robotics, manufacturing automation">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Projects | Dream Team Automation">
+    <meta property="og:description" content="Our portfolio of automation and engineering projects.">
+    <meta property="og:type" content="website">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <style>
+        .gallery-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .gallery-info {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        
+        .gallery-nav {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .gallery-nav button {
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+        
+        .gallery-nav button:hover {
+            background: var(--bg-card);
+            border-color: var(--accent-blue);
+            color: var(--text-primary);
+        }
+        
+        .placeholder-image {
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/images/logo.png" alt="Dream Team Automation Logo">
+                <div class="nav-logo-text">
+                    <span class="nav-logo-title">Dream Team Automation</span>
+                    <span class="nav-logo-subtitle">Precision Tooling Design</span>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="staffing.html">Staffing</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="projects.html" class="active">Projects</a></li>
+                <li><a href="careers.html">Careers</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>Projects</h1>
+            <p>A showcase of our automation and engineering work</p>
+        </div>
+    </header>
+
+    <!-- Gallery Section -->
+    <section class="container">
+        <div class="gallery-controls fade-in">
+            <p class="gallery-info">Showing 14 projects</p>
+            <div class="gallery-nav">
+                <button id="prevBtn">◄ Prev</button>
+                <button id="nextBtn">Next ►</button>
+            </div>
+        </div>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item fade-in stagger-1">
+                <div class="placeholder-image" style="aspect-ratio: 16/10;">
+                    <span>Project Image 1<br>Automation Line</span>
+                </div>
+            </div>
+            <div class="gallery-item fade-in stagger-2">
+                <div class="placeholder-image" style="aspect-ratio: 16/10;">
+                    <span>Project Image 2<br>Weld Cell</span>
+                </div>
+            </div>
+            <div class="gallery-item fade-in stagger-3">
+                <div class="placeholder-image" style="aspect-ratio: 16/10;">
+                    <span>Project Image 3<br>Body-in-White System</span>
+                </div>
+            </div>
+            <div class="gallery-item fade-in stagger-4">
+                <div class="placeholder-image" style="aspect-ratio: 16/10;">
+                    <span>Project Image 4<br>Robotic Assembly</span>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <div class="placeholder-image" style="aspect-ratio: 16/10;">
+                    <span>Project Image 5<br>EOAT Design</span>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <div class="placeholder-image" style="aspect-ratio: 16/10;">
+                    <span>Project Image 6<br>Conveyor System</span>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <div class="placeholder-image" style="aspect-ratio: 16/10;">
+                    <span>Project Image 7<br>Fixture Design</span>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <div class="placeholder-image" style="aspect-ratio: 16/10;">
+                    <span>Project Image 8<br>Transfer Station</span>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <div class="placeholder-image" style="aspect-ratio: 16/10;">
+                    <span>Project Image 9<br>3D Printed Part</span>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <div class="placeholder-image" style="aspect-ratio: 16/10;">
+                    <span>Project Image 10<br>Prototype Assembly</span>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <div class="placeholder-image" style="aspect-ratio: 16/10;">
+                    <span>Project Image 11<br>Simulation Model</span>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <div class="placeholder-image" style="aspect-ratio: 16/10;">
+                    <span>Project Image 12<br>CAD Layout</span>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <div class="placeholder-image" style="aspect-ratio: 16/10;">
+                    <span>Project Image 13<br>Training Center</span>
+                </div>
+            </div>
+            <div class="gallery-item fade-in">
+                <div class="placeholder-image" style="aspect-ratio: 16/10;">
+                    <span>Project Image 14<br>Complete Line</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="container" style="padding-bottom: 120px;">
+        <div class="card fade-in" style="text-align: center; padding: 4rem;">
+            <h2 class="section-title mb-2">Have a Project in Mind?</h2>
+            <p class="section-subtitle mb-3">Let's discuss how we can help bring your automation vision to life.</p>
+            <a href="contact.html" class="btn btn-primary">
+                <span>Discuss Your Project</span>
+                <span class="btn-arrow">→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">© 2025 Dream Team Automation, LLC</p>
+                <div class="footer-badge">
+                    <span class="footer-text">Clinton Twp., MI</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
+
