@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nimbleresolve.com/sitemap.xml
