@@ -59,15 +59,11 @@
             color: var(--text-primary);
         }
         
-        .placeholder-image {
-            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            text-align: center;
-            padding: 2rem;
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -110,82 +106,47 @@
     <section class="container">
         <div class="gallery-controls fade-in">
             <p class="gallery-info">Showing 14 projects</p>
-            <div class="gallery-nav">
-                <button id="prevBtn">◄ Prev</button>
-                <button id="nextBtn">Next ►</button>
-            </div>
         </div>
         
         <div class="gallery-grid">
             <div class="gallery-item fade-in stagger-1">
-                <div class="placeholder-image" style="aspect-ratio: 16/10;">
-                    <span>Project Image 1<br>Automation Line</span>
-                </div>
+                <img src="assets/images/project-1.jpg" alt="Automation project  - Training center robotics" loading="lazy">
             </div>
             <div class="gallery-item fade-in stagger-2">
-                <div class="placeholder-image" style="aspect-ratio: 16/10;">
-                    <span>Project Image 2<br>Weld Cell</span>
-                </div>
+                <img src="assets/images/project-2.jpg" alt="Automation project - Weld cell system" loading="lazy">
             </div>
             <div class="gallery-item fade-in stagger-3">
-                <div class="placeholder-image" style="aspect-ratio: 16/10;">
-                    <span>Project Image 3<br>Body-in-White System</span>
-                </div>
+                <img src="assets/images/project-3.jpg" alt="Automation project - Body-in-white assembly" loading="lazy">
             </div>
             <div class="gallery-item fade-in stagger-4">
-                <div class="placeholder-image" style="aspect-ratio: 16/10;">
-                    <span>Project Image 4<br>Robotic Assembly</span>
-                </div>
+                <img src="assets/images/project-4.jpg" alt="Automation project - Robotic arm" loading="lazy">
             </div>
             <div class="gallery-item fade-in">
-                <div class="placeholder-image" style="aspect-ratio: 16/10;">
-                    <span>Project Image 5<br>EOAT Design</span>
-                </div>
+                <img src="assets/images/project-5.jpg" alt="Automation project - Manufacturing line" loading="lazy">
             </div>
             <div class="gallery-item fade-in">
-                <div class="placeholder-image" style="aspect-ratio: 16/10;">
-                    <span>Project Image 6<br>Conveyor System</span>
-                </div>
+                <img src="assets/images/project-6.jpg" alt="Automation project - Assembly station" loading="lazy">
             </div>
             <div class="gallery-item fade-in">
-                <div class="placeholder-image" style="aspect-ratio: 16/10;">
-                    <span>Project Image 7<br>Fixture Design</span>
-                </div>
+                <img src="assets/images/project-7.jpg" alt="Automation project - Fixture design" loading="lazy">
             </div>
             <div class="gallery-item fade-in">
-                <div class="placeholder-image" style="aspect-ratio: 16/10;">
-                    <span>Project Image 8<br>Transfer Station</span>
-                </div>
+                <img src="assets/images/project-8.jpg" alt="Automation project - Transfer system" loading="lazy">
             </div>
             <div class="gallery-item fade-in">
-                <div class="placeholder-image" style="aspect-ratio: 16/10;">
-                    <span>Project Image 9<br>3D Printed Part</span>
-                </div>
+                <img src="assets/images/project-9.jpg" alt="Automation project - Conveyor system" loading="lazy">
             </div>
             <div class="gallery-item fade-in">
-                <div class="placeholder-image" style="aspect-ratio: 16/10;">
-                    <span>Project Image 10<br>Prototype Assembly</span>
-                </div>
+                <img src="assets/images/project-10.jpg" alt="Automation project - Weld tooling" loading="lazy">
             </div>
             <div class="gallery-item fade-in">
-                <div class="placeholder-image" style="aspect-ratio: 16/10;">
-                    <span>Project Image 11<br>Simulation Model</span>
-                </div>
+                <img src="assets/images/project-11.jpg" alt="Automation project - EOAT design" loading="lazy">
             </div>
             <div class="gallery-item fade-in">
-                <div class="placeholder-image" style="aspect-ratio: 16/10;">
-                    <span>Project Image 12<br>CAD Layout</span>
-                </div>
+                <img src="assets/images/project-12.jpg" alt="Automation project - Cell layout" loading="lazy">
             </div>
             <div class="gallery-item fade-in">
-                <div class="placeholder-image" style="aspect-ratio: 16/10;">
-                    <span>Project Image 13<br>Training Center</span>
-                </div>
-            </div>
-            <div class="gallery-item fade-in">
-                <div class="placeholder-image" style="aspect-ratio: 16/10;">
-                    <span>Project Image 14<br>Complete Line</span>
-                </div>
+                <img src="assets/images/project-13.jpg" alt="Automation project - Production line" loading="lazy">
             </div>
         </div>
     </section>
@@ -218,4 +179,3 @@
     <script src="assets/js/main.js"></script>
 </body>
 </html>
-
