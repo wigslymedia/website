@@ -292,34 +292,49 @@
         
         <!-- AR Viewer (model-viewer component) -->
         <div id="ar-viewer-container" style="display: none; margin-top: 2rem;">
+            <div style="text-align: center; margin-bottom: 1rem;">
+                <p style="color: var(--accent-blue); font-size: 1.2rem;">📱 3D Model Ready for AR</p>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">Tap the AR button below to place this model in your space</p>
+            </div>
             <model-viewer 
                 id="ar-model-viewer"
                 ar 
-                ar-modes="webxr scene-viewer quick-look"
+                ar-modes="scene-viewer webxr quick-look"
+                ar-scale="auto"
                 camera-controls 
                 touch-action="pan-y"
                 auto-rotate
                 shadow-intensity="1"
+                exposure="1"
+                environment-image="neutral"
                 style="width: 100%; height: 500px; background: linear-gradient(135deg, #0a0d12 0%, #151a24 100%); border-radius: 8px;"
             >
-                <button slot="ar-button" style="
+                <button slot="ar-button" id="ar-activate-btn" style="
                     background: linear-gradient(135deg, #00d4ff 0%, #4a9eff 100%);
                     border: none;
-                    border-radius: 4px;
-                    padding: 12px 24px;
+                    border-radius: 8px;
+                    padding: 16px 32px;
                     color: white;
                     font-family: 'Rajdhani', sans-serif;
                     font-weight: 600;
-                    font-size: 1rem;
+                    font-size: 1.1rem;
                     cursor: pointer;
                     position: absolute;
-                    bottom: 16px;
+                    bottom: 20px;
                     left: 50%;
                     transform: translateX(-50%);
+                    box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
                 ">
-                    🔮 View in Your Space
+                    <span>🔮</span> View in Your Space
                 </button>
+                <div slot="progress-bar" style="background: var(--accent-blue); height: 4px;"></div>
             </model-viewer>
+            <p id="ar-instructions" style="text-align: center; color: var(--text-muted); margin-top: 1rem; font-size: 0.9rem;">
+                On iPhone: Opens in AR Quick Look | On Android: Opens in Scene Viewer
+            </p>
         </div>
         
         <!-- QR Code for mobile AR -->
@@ -560,19 +575,38 @@
         
         // Launch AR for demo models
         function launchARForModel(scene, mesh) {
+            // Show loading state
+            const arViewerContainer = document.getElementById('ar-viewer-container');
+            const modelViewer = document.getElementById('ar-model-viewer');
+            
+            arViewerContainer.style.display = 'block';
+            document.getElementById('ar-section').style.display = 'block';
+            arViewerContainer.scrollIntoView({ behavior: 'smooth' });
+            
             const exporter = new THREE.GLTFExporter();
             
             // Create a clean scene for export
             const exportScene = new THREE.Scene();
             const exportMesh = mesh.clone();
+            
+            // Reset position and scale for AR
             exportMesh.position.set(0, 0, 0);
+            exportMesh.rotation.set(0, 0, 0);
+            
+            // Apply a nice material for AR
+            exportMesh.material = new THREE.MeshStandardMaterial({
+                color: 0x4a9eff,
+                metalness: 0.7,
+                roughness: 0.3
+            });
+            
             exportScene.add(exportMesh);
             
-            // Add light for better AR appearance
+            // Add lights for better AR appearance
             const light = new THREE.DirectionalLight(0xffffff, 1);
             light.position.set(1, 1, 1);
             exportScene.add(light);
-            exportScene.add(new THREE.AmbientLight(0xffffff, 0.5));
+            exportScene.add(new THREE.AmbientLight(0xffffff, 0.6));
             
             exporter.parse(
                 exportScene,
@@ -580,27 +614,36 @@
                     const blob = new Blob([glb], { type: 'model/gltf-binary' });
                     const url = URL.createObjectURL(blob);
                     
-                    // Setup and show AR viewer
-                    const modelViewer = document.getElementById('ar-model-viewer');
-                    const arViewerContainer = document.getElementById('ar-viewer-container');
-                    
+                    // Set the model source
                     modelViewer.src = url;
-                    arViewerContainer.style.display = 'block';
-                    document.getElementById('ar-section').style.display = 'block';
                     
-                    // Scroll to AR viewer
-                    arViewerContainer.scrollIntoView({ behavior: 'smooth' });
-                    
-                    // Try to activate AR
-                    setTimeout(() => {
+                    // Listen for when model is loaded
+                    modelViewer.addEventListener('load', () => {
+                        console.log('Model loaded, AR ready');
+                        
+                        // Check AR support
                         if (modelViewer.canActivateAR) {
-                            modelViewer.activateAR();
+                            document.getElementById('ar-instructions').innerHTML = 
+                                '✅ AR is supported! Tap the button above to view in your space.';
+                            document.getElementById('ar-instructions').style.color = '#10b981';
+                        } else {
+                            document.getElementById('ar-instructions').innerHTML = 
+                                '📱 Open this page on your phone to use AR. You can still rotate the 3D model here.';
                         }
-                    }, 500);
+                    }, { once: true });
+                    
+                    modelViewer.addEventListener('error', (e) => {
+                        console.error('Model viewer error:', e);
+                        document.getElementById('ar-instructions').innerHTML = 
+                            '⚠️ Error loading model. Try refreshing the page.';
+                        document.getElementById('ar-instructions').style.color = '#ef4444';
+                    }, { once: true });
                 },
                 (error) => {
                     console.error('GLB export error:', error);
-                    alert('AR export failed. Try on a mobile device for best results.');
+                    document.getElementById('ar-instructions').innerHTML = 
+                        '⚠️ Export failed. Try uploading a GLB file directly for best AR support.';
+                    document.getElementById('ar-instructions').style.color = '#ef4444';
                 },
                 { binary: true }
             );
