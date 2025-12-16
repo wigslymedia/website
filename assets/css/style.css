@@ -329,7 +329,7 @@ a:hover {
     align-items: center;
     justify-content: center;
     position: relative;
-    padding: 120px 2rem 80px;
+    padding: 100px 2rem 80px; /* Reduced top padding from 120px */
     overflow: hidden;
 }
 
@@ -374,9 +374,9 @@ a:hover {
 }
 
 .hero-logo {
-    width: 180px;
+    width: 280px;
     height: auto;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     filter: drop-shadow(0 0 30px rgba(255, 102, 0, 0.3));
     animation: float 6s ease-in-out infinite;
 }
@@ -1163,11 +1163,11 @@ section {
     .hero {
         padding: 80px 1.5rem 60px;
         min-height: auto; /* Allow content to dictate height on small screens */
-        padding-top: 100px; /* Reduced from 140px to move content up */
+        padding-top: 80px; /* Reduced further from 100px to move content up */
     }
     
     .hero-logo {
-        width: 100px; /* Smaller logo */
+        width: 180px; /* Increased from 100px for mobile */
     }
     
     .footer-content {
