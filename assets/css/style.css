@@ -1161,9 +1161,9 @@ section {
     }
     
     .hero {
-        padding: 100px 1.5rem 60px;
+        padding: 80px 1.5rem 60px;
         min-height: auto; /* Allow content to dictate height on small screens */
-        padding-top: 140px; /* More space for header */
+        padding-top: 100px; /* Reduced from 140px to move content up */
     }
     
     .hero-logo {
