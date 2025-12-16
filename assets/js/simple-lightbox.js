@@ -131,14 +131,11 @@
         // for fast images, but also to give the loader time to render
         const loadStart = Date.now();
         
-        // Set new source
-        lightboxImg.src = imgData.src;
-        lightboxImg.alt = imgData.alt || 'Portfolio Image';
-        
-        // When loaded, show image and hide loader
+        // Define onload BEFORE setting src to avoid race conditions with cached images
         lightboxImg.onload = function() {
             const elapsed = Date.now() - loadStart;
-            const delay = elapsed < 300 ? 300 - elapsed : 0;
+            // Reduce delay to make it snappier
+            const delay = elapsed < 100 ? 100 - elapsed : 0;
             
             setTimeout(() => {
                 if (loader) loader.style.display = 'none';
@@ -151,6 +148,10 @@
             if (loader) loader.style.display = 'none';
             console.error('Failed to load image:', imgData.src);
         };
+        
+        // Set new source AFTER event handlers
+        lightboxImg.src = imgData.src;
+        lightboxImg.alt = imgData.alt || 'Portfolio Image';
         
         if (lightboxCurrent) lightboxCurrent.textContent = currentIndex + 1;
         
@@ -177,4 +178,3 @@
     }
 
 })();
-
