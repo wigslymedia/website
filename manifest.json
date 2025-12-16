@@ -1,11 +1,11 @@
 {
-  "name": "Dream Team Automation",
-  "short_name": "DTA",
-  "description": "Precision Tooling Design - Engineering staffing, turn-key design, 3D printing, and CAD automation services.",
+  "name": "Portfolio Showcase",
+  "short_name": "Portfolio",
+  "description": "Professional photography portfolio showcasing creative work and visual storytelling.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f1419",
-  "theme_color": "#0f1419",
+  "background_color": "#000000",
+  "theme_color": "#000000",
   "icons": [
     {
       "src": "favicon.svg",
@@ -19,3 +19,4 @@
     }
   ]
 }
+

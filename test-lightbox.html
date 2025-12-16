@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+<head><title>Test</title></head>
+<body>
+    <div class="gallery-item" id="test-item">
+        <img src="test.jpg" alt="Test">
+    </div>
+    <div id="lightbox" style="display:none;">
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="">
+            <button class="lightbox-close">Close</button>
+            <button class="lightbox-prev">Prev</button>
+            <button class="lightbox-next">Next</button>
+        </div>
+    </div>
+    <script>
+        console.log("Test script executing");
+        const item = document.querySelector('.gallery-item');
+        const lightbox = document.getElementById('lightbox');
+        console.log("Item found:", !!item);
+        console.log("Lightbox found:", !!lightbox);
+        
+        if (item && lightbox) {
+            item.addEventListener('click', function() {
+                console.log("Gallery item clicked!");
+                lightbox.style.display = 'flex';
+            });
+            console.log("Click handler attached");
+        }
+    </script>
+</body>
+</html>

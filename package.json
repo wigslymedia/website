@@ -1,0 +1,14 @@
+{
+  "name": "portfolio-tests",
+  "version": "1.0.0",
+  "description": "E2E tests for portfolio website",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test --ui",
+    "test:report": "npx playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  }
+}
+

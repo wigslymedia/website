@@ -43,3 +43,6 @@ venv/
 env/
 ENV/
 .venv
+
+# Testing
+test-results/

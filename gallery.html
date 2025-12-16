@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | Portfolio Showcase</title>
+    <meta name="description" content="Full portfolio gallery showcasing all creative work and photography.">
+    <meta name="keywords" content="photography gallery, portfolio, creative work, visual arts">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Gallery | Portfolio Showcase">
+    <meta property="og:description" content="Full portfolio gallery showcasing all creative work.">
+    <meta property="og:type" content="website">
+    
+    <!-- Fonts - Helvetica Neue is system font, no external font needed -->
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <style>
+        .gallery-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .gallery-info {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        
+        .gallery-item {
+            cursor: pointer;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.03);
+            box-shadow: 0 10px 40px rgba(255, 102, 0, 0.2);
+        }
+        
+        /* Lightbox Styles */
+        .lightbox {
+            display: none !important;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            visibility: hidden;
+        }
+        
+        .lightbox.active {
+            display: flex !important;
+            opacity: 1;
+            pointer-events: all;
+            visibility: visible;
+        }
+        
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+        
+        .lightbox-content > * {
+            pointer-events: all;
+        }
+        
+        .lightbox-loader {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--accent-orange);
+            animation: spin 1s ease-in-out infinite;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+        
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            display: block; /* Ensure it's not hidden by default behavior */
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 2.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            line-height: 1;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .lightbox-close:hover {
+            color: var(--accent-orange);
+            transform: scale(1.1);
+        }
+        
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(30, 36, 51, 0.8);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+        
+        .lightbox-nav:hover {
+            background: var(--accent-orange);
+            border-color: var(--accent-orange);
+        }
+        
+        .lightbox-prev {
+            left: -80px;
+        }
+        
+        .lightbox-next {
+            right: -80px;
+        }
+        
+        .lightbox-counter {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        
+        @media (max-width: 768px) {
+            .lightbox-nav {
+                padding: 0.75rem 1rem;
+                font-size: 1.2rem;
+            }
+            
+            .lightbox-prev {
+                left: 10px;
+            }
+            
+            .lightbox-next {
+                right: 10px;
+            }
+            
+            .lightbox-close {
+                top: -40px;
+                right: 10px;
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/images/logo.png" alt="Portfolio Logo">
+                <div class="nav-logo-text">
+                    <span class="nav-logo-title">Portfolio</span>
+                    <span class="nav-logo-subtitle">Creative Showcase</span>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="gallery.html" class="active">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>Gallery</h1>
+            <p>Complete portfolio showcase</p>
+        </div>
+    </header>
+
+    <!-- Gallery Section -->
+    <section class="container">
+        <div class="gallery-controls fade-in">
+            <p class="gallery-info">Showing 44 images • Click to enlarge</p>
+        </div>
+        
+        <!-- Gallery Filters -->
+        <div class="gallery-filters fade-in">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="music">Music Videos</button>
+            <button class="filter-btn" data-filter="wedding">Wedding</button>
+            <button class="filter-btn" data-filter="event">Events</button>
+            <button class="filter-btn" data-filter="commercial">Commercials</button>
+        </div>
+        
+        <div class="gallery-grid" id="gallery">
+            <div class="gallery-item fade-in stagger-1" data-index="0" data-category="music">
+                <img src="assets/images/photos/_MG_0696.webp" alt="Portfolio image 1" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in stagger-2" data-index="1">
+                <img src="assets/images/photos/_MG_0711.webp" alt="Portfolio image 2" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in stagger-3" data-index="2">
+                <img src="assets/images/photos/IMG_0160.webp" alt="Portfolio image 3" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in stagger-4" data-index="3">
+                <img src="assets/images/photos/IMG_1116.webp" alt="Portfolio image 4" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="4">
+                <img src="assets/images/photos/IMG_1251.webp" alt="Portfolio image 5" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="5">
+                <img src="assets/images/photos/IMG_1284.webp" alt="Portfolio image 6" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="6">
+                <img src="assets/images/photos/IMG_1301.webp" alt="Portfolio image 7" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="7">
+                <img src="assets/images/photos/IMG_1310.webp" alt="Portfolio image 8" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="8">
+                <img src="assets/images/photos/IMG_1382.webp" alt="Portfolio image 9" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="9">
+                <img src="assets/images/photos/IMG_1386.webp" alt="Portfolio image 10" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="10">
+                <img src="assets/images/photos/IMG_1562.webp" alt="Portfolio image 11" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="11">
+                <img src="assets/images/photos/IMG_1611.webp" alt="Portfolio image 12" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="12">
+                <img src="assets/images/photos/IMG_1717.webp" alt="Portfolio image 13" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="13">
+                <img src="assets/images/photos/IMG_1755.webp" alt="Portfolio image 14" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="14">
+                <img src="assets/images/photos/IMG_2096.webp" alt="Portfolio image 15" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="15">
+                <img src="assets/images/photos/IMG_2131.webp" alt="Portfolio image 16" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="16">
+                <img src="assets/images/photos/IMG_2280.webp" alt="Portfolio image 17" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="17">
+                <img src="assets/images/photos/IMG_2283.webp" alt="Portfolio image 18" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="18">
+                <img src="assets/images/photos/IMG_2389.webp" alt="Portfolio image 19" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="19">
+                <img src="assets/images/photos/IMG_2520.webp" alt="Portfolio image 20" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="20">
+                <img src="assets/images/photos/IMG_2534.webp" alt="Portfolio image 21" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="21">
+                <img src="assets/images/photos/IMG_2575.webp" alt="Portfolio image 22" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="22">
+                <img src="assets/images/photos/IMG_3614.webp" alt="Portfolio image 23" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="23">
+                <img src="assets/images/photos/IMG_3669.webp" alt="Portfolio image 24" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="24">
+                <img src="assets/images/photos/IMG_3746.webp" alt="Portfolio image 25" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="25">
+                <img src="assets/images/photos/IMG_3763.webp" alt="Portfolio image 26" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="26">
+                <img src="assets/images/photos/IMG_4932.webp" alt="Portfolio image 27" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="27">
+                <img src="assets/images/photos/IMG_4994.webp" alt="Portfolio image 28" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="28">
+                <img src="assets/images/photos/IMG_5169.webp" alt="Portfolio image 29" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="29">
+                <img src="assets/images/photos/IMG_5704.webp" alt="Portfolio image 30" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="30">
+                <img src="assets/images/photos/IMG_5726.webp" alt="Portfolio image 31" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="31">
+                <img src="assets/images/photos/IMG_5998.webp" alt="Portfolio image 32" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="32">
+                <img src="assets/images/photos/IMG_6103.webp" alt="Portfolio image 33" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="33">
+                <img src="assets/images/photos/IMG_6117.webp" alt="Portfolio image 34" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="34">
+                <img src="assets/images/photos/IMG_6249.webp" alt="Portfolio image 35" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="35">
+                <img src="assets/images/photos/IMG_6353.webp" alt="Portfolio image 36" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="36">
+                <img src="assets/images/photos/IMG_6554.webp" alt="Portfolio image 37" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="37">
+                <img src="assets/images/photos/IMG_6718.webp" alt="Portfolio image 38" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="38">
+                <img src="assets/images/photos/IMG_6900.webp" alt="Portfolio image 39" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="39">
+                <img src="assets/images/photos/IMG_7677.webp" alt="Portfolio image 40" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="40">
+                <img src="assets/images/photos/IMG_7892.webp" alt="Portfolio image 41" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="41">
+                <img src="assets/images/photos/IMG_8406.webp" alt="Portfolio image 42" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="42">
+                <img src="assets/images/photos/IMG_9675.webp" alt="Portfolio image 43" loading="lazy" decoding="async">
+            </div>
+            <div class="gallery-item fade-in" data-index="43">
+                <img src="assets/images/photos/IMG_9733.webp" alt="Portfolio image 44" loading="lazy" decoding="async">
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" aria-label="Close">&times;</button>
+            <button class="lightbox-nav lightbox-prev" aria-label="Previous image">&#10094;</button>
+            <div class="lightbox-loader"></div>
+            <img src="" alt="Portfolio image" id="lightbox-img">
+            <button class="lightbox-nav lightbox-next" aria-label="Next image">&#10095;</button>
+            <div class="lightbox-counter"><span id="lightbox-current">1</span> / <span id="lightbox-total">44</span></div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <section class="container" style="padding-top: 80px; padding-bottom: 120px;">
+        <div class="card fade-in" style="text-align: center; padding: 4rem;">
+            <h2 class="section-title mb-2">Interested in Working Together?</h2>
+            <p class="section-subtitle mb-3">Get in touch to discuss your project or commission work.</p>
+            <a href="contact.html" class="btn btn-primary">
+                <span>Contact Me</span>
+                <span class="btn-arrow">→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">© 2025 Portfolio Showcase</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/gallery-filter.js"></script>
+    <script src="assets/js/advanced-features.js"></script>
+    <script src="assets/js/simple-lightbox.js"></script>
+</body>
+</html>
+

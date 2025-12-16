@@ -3,20 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dream Team Automation | Precision Tooling Design</title>
-    <meta name="description" content="Dream Team Automation, LLC - Engineering staffing, turn-key design, 3D printing, and CAD automation services. Precision tooling design for the automotive industry.">
-    <meta name="keywords" content="automation, engineering staffing, tooling design, CAD, 3D printing, body-in-white, weld systems, Michigan">
+    <title>Portfolio Showcase | Video Production & Photography Services</title>
+    <meta name="description" content="Professional video production and photography portfolio. Music videos, wedding videos, advertising commercials, and concert/event photography services.">
+    <meta name="keywords" content="video production, music videos, wedding videography, commercial production, event photography, concert photography, video editing, cinematography">
+    <meta name="author" content="Portfolio Showcase">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Performance hints -->
+    <link rel="preload" href="assets/images/logo.png" as="image">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="Dream Team Automation | Precision Tooling Design">
-    <meta property="og:description" content="Engineering staffing, turn-key design, 3D printing, and CAD automation services.">
+    <meta property="og:title" content="Portfolio Showcase | Video Production & Photography">
+    <meta property="og:description" content="Professional video production and photography services. Music videos, wedding videos, commercials, and event photography.">
+    <meta property="og:image" content="assets/images/logo.png">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://dreamteamautomation.com/">
     
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Fonts - Helvetica Neue is system font, no external font needed -->
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -25,100 +28,143 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="page-loader">
+        <div class="loader-content">
+            <div class="loader-logo">
+                <img src="assets/images/logo.png" alt="Loading">
+            </div>
+            <div class="loader-progress-bar">
+                <div class="loader-progress"></div>
+            </div>
+            <p class="loader-text">Loading Portfolio...</p>
+        </div>
+    </div>
+    
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-container">
             <a href="index.html" class="nav-logo">
-                <img src="assets/images/logo.png" alt="Dream Team Automation Logo">
+                <img src="assets/images/logo.png" alt="Portfolio Logo">
                 <div class="nav-logo-text">
-                    <span class="nav-logo-title">Dream Team Automation</span>
-                    <span class="nav-logo-subtitle">Precision Tooling Design</span>
-            </div>
+                    <span class="nav-logo-title">Portfolio</span>
+                    <span class="nav-logo-subtitle">Creative Showcase</span>
+                </div>
             </a>
             <ul class="nav-links">
                 <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="staffing.html">Staffing</a></li>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="careers.html">Careers</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
             <div class="nav-toggle">
                 <span></span>
                 <span></span>
                 <span></span>
-        </div>
+            </div>
         </div>
     </nav>
     
     <!-- Hero Section -->
     <section class="hero">
-            <div class="hero-content">
-            <img src="assets/images/logo.png" alt="Dream Team Automation" class="hero-logo">
-            <h1 class="hero-title">Dream Team Automation</h1>
-            <p class="hero-subtitle">Precision Tooling Design</p>
+        <div class="hero-content">
+            <img src="assets/images/logo.png" alt="Portfolio Logo" class="hero-logo">
+            <h1 class="hero-title">Portfolio Showcase</h1>
+            <p class="hero-subtitle">Creative Visual Storytelling</p>
             
             <div class="hero-services">
-                <span class="service-keyword">Staffing</span>
-                <span class="service-keyword">Process Validation</span>
-                <span class="service-keyword highlight">Mechanical Engineering</span>
-                <span class="service-keyword">Body-in-White Weld Systems</span>
-                <span class="service-keyword">Rapid Prototyping</span>
-                </div>
+                <span class="service-keyword">Music Videos</span>
+                <span class="service-keyword">Wedding Videos</span>
+                <span class="service-keyword highlight">Event Photography</span>
+                <span class="service-keyword">Commercials</span>
+            </div>
             
-            <a href="contact.html" class="btn btn-primary">
-                <span>Discuss Your Project</span>
+            <a href="gallery.html" class="btn btn-primary">
+                <span>View Full Gallery</span>
                 <span class="btn-arrow">→</span>
             </a>
         </div>
     </section>
-
-    <!-- Services Overview -->
+    
+    <!-- Featured Portfolio -->
     <section class="container">
         <div class="section-header fade-in">
-            <h2 class="section-title">Our Services</h2>
-            <p class="section-subtitle">Comprehensive automation and engineering solutions for the manufacturing industry</p>
+            <h2 class="section-title">Featured Work</h2>
+            <p class="section-subtitle">Music videos, wedding videos, advertising commercials, and concert/event photography</p>
             <div class="section-divider"></div>
-                </div>
+        </div>
         
-        <div class="services-grid">
-            <div class="card fade-in stagger-1">
-                <div class="card-icon">👥</div>
-                <h3 class="card-title">Engineering Staffing</h3>
-                <p class="card-text">Managers, design leaders, checkers, designers, simulation, system layout, PM/PE. Flexible contracts with option-to-hire.</p>
-                <a href="staffing.html" class="btn btn-secondary mt-2">Learn More →</a>
-            </div>
-            
-            <div class="card fade-in stagger-2">
-                <div class="card-icon">🔧</div>
-                <h3 class="card-title">Turn-Key Design</h3>
-                <p class="card-text">Complete lines, individual cells/stations, EOAT, conveyors & transfers. From concept to runoff, drawings & BOMs included.</p>
-                <a href="services.html" class="btn btn-secondary mt-2">Learn More →</a>
-            </div>
-            
-            <div class="card fade-in stagger-3">
-                <div class="card-icon">🖨️</div>
-                <h3 class="card-title">Rapid Prototyping / 3D Printing</h3>
-                <p class="card-text">FFF/FDM & high-res resin. Prototype through small-run production, material guidance, and fit-for-purpose finishing.</p>
-                <a href="services.html" class="btn btn-secondary mt-2">Learn More →</a>
-            </div>
-
-<div class="card fade-in stagger-4">
-                <div class="card-icon">💻</div>
-                <h3 class="card-title">CAD Automation / Macros</h3>
-                <p class="card-text">AutoCAD, Inventor, SolidWorks, NX, Teamcenter automations: export pipelines, parametrics, BOM validation, drawing batch tools, and more.</p>
-                <a href="services.html" class="btn btn-secondary mt-2">Learn More →</a>
-            </div>
+        <div class="gallery-grid">
+            <a href="gallery.html" class="gallery-item fade-in stagger-1" aria-label="View featured work - Music video production">
+                <img src="assets/images/photos/IMG_0160.webp" alt="Music video production showcase" loading="lazy">
+                <div class="gallery-overlay">
+                    <span class="gallery-category">Music Video</span>
+                </div>
+            </a>
+            <a href="gallery.html" class="gallery-item fade-in stagger-2" aria-label="View featured work - Wedding videography">
+                <img src="assets/images/photos/IMG_1116.webp" alt="Wedding videography showcase" loading="lazy">
+                <div class="gallery-overlay">
+                    <span class="gallery-category">Wedding</span>
+                </div>
+            </a>
+            <a href="gallery.html" class="gallery-item fade-in stagger-3" aria-label="View featured work - Event photography">
+                <img src="assets/images/photos/IMG_1251.webp" alt="Event photography showcase" loading="lazy">
+                <div class="gallery-overlay">
+                    <span class="gallery-category">Event</span>
+                </div>
+            </a>
+            <a href="gallery.html" class="gallery-item fade-in stagger-4" aria-label="View featured work - Commercial production">
+                <img src="assets/images/photos/IMG_1284.webp" alt="Commercial production showcase" loading="lazy">
+                <div class="gallery-overlay">
+                    <span class="gallery-category">Commercial</span>
+                </div>
+            </a>
+            <a href="gallery.html" class="gallery-item fade-in" aria-label="View featured work - Music video">
+                <img src="assets/images/photos/IMG_1301.webp" alt="Music video production" loading="lazy">
+                <div class="gallery-overlay">
+                    <span class="gallery-category">Music Video</span>
+                </div>
+            </a>
+            <a href="gallery.html" class="gallery-item fade-in" aria-label="View featured work - Wedding">
+                <img src="assets/images/photos/IMG_1310.webp" alt="Wedding videography" loading="lazy">
+                <div class="gallery-overlay">
+                    <span class="gallery-category">Wedding</span>
+                </div>
+            </a>
+            <a href="gallery.html" class="gallery-item fade-in" aria-label="View featured work - Event">
+                <img src="assets/images/photos/IMG_1382.webp" alt="Event photography" loading="lazy">
+                <div class="gallery-overlay">
+                    <span class="gallery-category">Event</span>
+                </div>
+            </a>
+            <a href="gallery.html" class="gallery-item fade-in" aria-label="View featured work - Commercial">
+                <img src="assets/images/photos/IMG_1386.webp" alt="Commercial production" loading="lazy">
+                <div class="gallery-overlay">
+                    <span class="gallery-category">Commercial</span>
+                </div>
+            </a>
+            <a href="gallery.html" class="gallery-item fade-in" aria-label="View featured work - Music video">
+                <img src="assets/images/photos/IMG_1562.webp" alt="Music video production" loading="lazy">
+                <div class="gallery-overlay">
+                    <span class="gallery-category">Music Video</span>
+                </div>
+            </a>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="gallery.html" class="btn btn-secondary">
+                <span>View All Work</span>
+                <span class="btn-arrow">→</span>
+            </a>
         </div>
     </section>
 
     <!-- CTA Section -->
     <section class="container" style="padding-top: 80px; padding-bottom: 120px;">
         <div class="card fade-in" style="text-align: center; padding: 4rem;">
-            <h2 class="section-title mb-2">Ready to Start Your Project?</h2>
-            <p class="section-subtitle mb-3">Tell us about your automation needs and we'll get back to you with solutions and pricing.</p>
+            <h2 class="section-title mb-2">Interested in Working Together?</h2>
+            <p class="section-subtitle mb-3">Get in touch to discuss your project or commission work.</p>
             <a href="contact.html" class="btn btn-primary">
-                <span>Request a Quote</span>
+                <span>Contact Me</span>
                 <span class="btn-arrow">→</span>
             </a>
         </div>
@@ -128,15 +174,64 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <p class="footer-text">© 2025 Dream Team Automation, LLC</p>
-                <div class="footer-badge">
-                    <span class="footer-text">Clinton Twp., MI</span>
-                </div>
+                <p class="footer-text">© 2025 Portfolio Showcase</p>
             </div>
         </div>
     </footer>
 
+    <!-- Video Showcase Section -->
+    <section class="container" style="padding-top: 80px;">
+        <div class="section-header fade-in">
+            <h2 class="section-title">Video Portfolio</h2>
+            <p class="section-subtitle">Music videos, wedding videos, and commercial productions</p>
+            <div class="section-divider"></div>
+        </div>
+        
+        <div class="video-grid fade-in">
+            <div class="video-card">
+                <div class="video-placeholder">
+                    <div class="video-icon">▶</div>
+                    <p>Music Video</p>
+                </div>
+                <div class="video-info">
+                    <h3>Music Video Production</h3>
+                    <p>Professional music video production and editing</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-placeholder">
+                    <div class="video-icon">▶</div>
+                    <p>Wedding Video</p>
+                </div>
+                <div class="video-info">
+                    <h3>Wedding Videography</h3>
+                    <p>Capture your special day with cinematic quality</p>
+                </div>
+            </div>
+            <div class="video-card">
+                <div class="video-placeholder">
+                    <div class="video-icon">▶</div>
+                    <p>Commercial</p>
+                </div>
+                <div class="video-info">
+                    <h3>Commercial Production</h3>
+                    <p>Advertising commercials and brand content</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Scripts -->
+    <script src="assets/js/loading-screen.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/page-transitions.js"></script>
+    <script src="assets/js/gallery-filter.js"></script>
+    <script src="assets/js/advanced-features.js"></script>
+    
+    <!-- Initialize loading state -->
+    <script>
+        document.body.classList.add('loading');
+    </script>
 </body>
 </html>
+
