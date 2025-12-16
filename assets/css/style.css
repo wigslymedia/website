@@ -1129,35 +1129,57 @@ section {
     
     .nav-links {
         display: none;
-        position: absolute;
-        top: 100%;
+        position: fixed; /* Changed from absolute to fixed */
+        top: 0; /* Cover the whole screen */
         left: 0;
         right: 0;
-        background: rgba(0, 0, 0, 0.98); /* Darker, more solid background */
+        bottom: 0; /* Ensure full height */
+        background: rgba(0, 0, 0, 0.98);
         backdrop-filter: blur(10px);
         flex-direction: column;
-        padding: 2rem;
-        gap: 1.5rem; /* More space between links */
-        border-bottom: 1px solid var(--border-subtle);
-        height: 100vh; /* Full screen menu */
-        align-items: center; /* Center links */
-        justify-content: center; /* Center vertically */
-    }
-    
-    .nav-links a {
-        font-size: 1.25rem; /* Larger text for touch */
-        padding: 0.5rem 1rem; /* Larger hit area */
-        width: 100%;
-        text-align: center;
+        padding: 6rem 2rem 2rem; /* Add top padding to clear logo/toggle */
+        gap: 2rem;
+        border-bottom: none; /* Remove border */
+        height: 100vh;
+        align-items: center;
+        justify-content: flex-start; /* Start from top-ish */
+        z-index: 999; /* Below toggle button but above content */
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
     }
     
     .nav-links.active {
         display: flex;
+        opacity: 1;
+        pointer-events: all;
     }
     
+    /* Ensure toggle stays on top of the menu */
     .nav-toggle {
         display: flex;
-        padding: 0.75rem; /* Larger touch target */
+        padding: 0.75rem;
+        position: relative;
+        z-index: 1001; 
+    }
+    
+    /* Animate toggle to X when active */
+    .nav-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .nav-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+    
+    /* Ensure logo stays on top too */
+    .nav-logo {
+        position: relative;
+        z-index: 1001;
     }
     
     .hero {
