@@ -1118,17 +1118,37 @@ section {
         --card-padding: 1.5rem;
     }
     
+    /* Improve mobile typography */
+    h1 {
+        font-size: clamp(2rem, 8vw, 2.5rem); /* Slightly smaller on mobile */
+    }
+    
+    h2 {
+        font-size: clamp(1.75rem, 6vw, 2.25rem);
+    }
+    
     .nav-links {
         display: none;
         position: absolute;
         top: 100%;
         left: 0;
         right: 0;
-        background: var(--bg-primary);
+        background: rgba(0, 0, 0, 0.98); /* Darker, more solid background */
+        backdrop-filter: blur(10px);
         flex-direction: column;
         padding: 2rem;
-        gap: 1rem;
+        gap: 1.5rem; /* More space between links */
         border-bottom: 1px solid var(--border-subtle);
+        height: 100vh; /* Full screen menu */
+        align-items: center; /* Center links */
+        justify-content: center; /* Center vertically */
+    }
+    
+    .nav-links a {
+        font-size: 1.25rem; /* Larger text for touch */
+        padding: 0.5rem 1rem; /* Larger hit area */
+        width: 100%;
+        text-align: center;
     }
     
     .nav-links.active {
@@ -1137,42 +1157,63 @@ section {
     
     .nav-toggle {
         display: flex;
+        padding: 0.75rem; /* Larger touch target */
     }
     
     .hero {
         padding: 100px 1.5rem 60px;
+        min-height: auto; /* Allow content to dictate height on small screens */
+        padding-top: 140px; /* More space for header */
     }
     
     .hero-logo {
-        width: 120px;
+        width: 100px; /* Smaller logo */
     }
     
     .footer-content {
         flex-direction: column;
         text-align: center;
+        gap: 3rem;
     }
     
     .services-grid {
         grid-template-columns: 1fr;
     }
     
+    .services-grid .card {
+        max-width: 100%; /* Full width cards */
+    }
+    
+    /* Optimize gallery grid for mobile */
     .gallery-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Allow 2 columns on larger phones */
+        gap: 10px; /* Tighter gap */
+    }
+    
+    .filter-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
     }
 }
 
 @media (max-width: 480px) {
     .container {
-        padding: 0 1rem;
+        padding: 0 1.25rem;
     }
     
     .btn {
         width: 100%;
         justify-content: center;
+        padding: 0.875rem 1.5rem; /* Slightly smaller padding */
     }
     
     .form-row {
         grid-template-columns: 1fr;
+    }
+    
+    /* 1 column for very small screens if needed, but 160px minmax usually works for 2col */
+    .gallery-grid {
+         grid-template-columns: 1fr; /* Force 1 column on very small screens for better detail */
     }
 }
 
