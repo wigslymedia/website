@@ -438,6 +438,78 @@ a:hover {
     }
 }
 
+/* Scroll indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    opacity: 0.7;
+    animation: fadeScroll 2s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.mouse {
+    width: 26px;
+    height: 40px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    position: relative;
+}
+
+.wheel {
+    width: 4px;
+    height: 8px;
+    background: var(--accent-orange);
+    border-radius: 2px;
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scrollWheel 1.5s ease-in-out infinite;
+}
+
+.arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    margin-top: 5px;
+}
+
+.arrow span {
+    width: 10px;
+    height: 10px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    border-right: 2px solid rgba(255, 255, 255, 0.5);
+    transform: rotate(45deg);
+    animation: scrollArrow 1.5s ease-in-out infinite;
+}
+
+.arrow span:nth-child(2) { animation-delay: 0.15s; }
+.arrow span:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes scrollWheel {
+    0% { top: 6px; opacity: 1; }
+    100% { top: 20px; opacity: 0; }
+}
+
+@keyframes scrollArrow {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes fadeScroll {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
 /* ===== BUTTONS ===== */
 .btn {
     display: inline-flex;
@@ -1125,6 +1197,12 @@ section {
     
     h2 {
         font-size: clamp(1.75rem, 6vw, 2.25rem);
+    }
+    
+    /* Make the hero title bigger specifically on mobile for visual impact */
+    .hero-title {
+        font-size: 2.8rem;
+        line-height: 1.1;
     }
     
     .nav-links {
