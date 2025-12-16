@@ -545,12 +545,17 @@ section {
 }
 
 .card:hover {
+    border-color: var(--border-orange);
+}
+
+/* Interactive cards (smaller cards that should lift on hover) */
+.card.card-interactive:hover {
     transform: translateY(-8px);
     box-shadow: var(--shadow-hover);
     border-color: var(--accent-orange);
 }
 
-.card:hover::before {
+.card.card-interactive:hover::before {
     transform: scaleX(1);
 }
 
@@ -845,6 +850,87 @@ section {
     opacity: 1;
 }
 
+/* ===== SOCIAL MEDIA LINKS ===== */
+.social-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+}
+
+.social-link:hover {
+    background: var(--accent-orange);
+    border-color: var(--accent-orange);
+    color: var(--color-white);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 102, 0, 0.4);
+}
+
+.social-link svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    transition: transform 0.3s ease;
+}
+
+.social-link:hover svg {
+    transform: scale(1.1);
+}
+
+/* Social links in footer */
+.footer-social {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.footer-social-label {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* Social links in contact info */
+.contact-social {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.contact-social h4 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.contact-social .social-links {
+    gap: 0.75rem;
+}
+
+.contact-social .social-link {
+    width: 48px;
+    height: 48px;
+}
+
+.contact-social .social-link svg {
+    width: 22px;
+    height: 22px;
+}
+
 /* ===== CONTACT INFO ===== */
 .contact-info {
     display: flex;
@@ -910,6 +996,13 @@ section {
 }
 
 /* Advanced animation classes */
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
 @keyframes slideInUp {
     from {
         opacity: 0;
@@ -1094,9 +1187,9 @@ section {
 }
 
 .video-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-4px);
     border-color: var(--accent-orange);
-    box-shadow: 0 20px 60px rgba(255, 102, 0, 0.2);
+    box-shadow: 0 15px 40px rgba(255, 102, 0, 0.15);
 }
 
 .video-placeholder {

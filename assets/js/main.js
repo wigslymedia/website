@@ -2,10 +2,9 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
-    initScrollAnimations();
+    initScrollAnimations(); // Consolidated fade-in/slide-up animations
     initFormHandling();
     initInteractiveBackground();
-    initAdvancedFeatures();
     initImageOptimization();
     initSmoothScroll();
     initMicroInteractions();
@@ -40,38 +39,83 @@ function initNavigation() {
         }
     });
     
-    // Navbar background on scroll
+    // Smart Navbar (Hide on scroll down, show on scroll up)
     const nav = document.querySelector('.nav');
     if (nav) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
+        let lastScrollTop = 0;
+        
+        const updateNav = () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Background opacity logic
+            if (scrollTop > 50) {
                 nav.style.background = 'rgba(15, 20, 25, 0.98)';
+                nav.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)';
             } else {
-                nav.style.background = '';
+                nav.style.background = 'transparent'; // Transparent at top
+                nav.style.boxShadow = 'none';
             }
-        });
+            
+            // Hide/Show logic
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                // Scrolling down & past header
+                nav.style.transform = 'translateY(-100%)';
+            } else {
+                // Scrolling up or at top
+                nav.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+        };
+        
+        // Add transition for transform
+        nav.style.transition = 'transform 0.3s ease, background 0.3s ease';
+        
+        window.addEventListener('scroll', updateNav, { passive: true });
+        updateNav(); // Init on load
     }
 }
 
-// ===== SCROLL ANIMATIONS =====
+// ===== SCROLL ANIMATIONS (Consolidated) =====
 function initScrollAnimations() {
-    const fadeElements = document.querySelectorAll('.fade-in');
+    // Combine selectors from previous multiple observers
+    const animatedElements = document.querySelectorAll('.fade-in, .hero-content');
     
-    if (fadeElements.length === 0) return;
+    if (animatedElements.length === 0) return;
+    
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
     
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                // For advanced features compatibility
+                entry.target.classList.add('animate-in');
                 observer.unobserve(entry.target);
             }
         });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
+    }, observerOptions);
     
-    fadeElements.forEach(el => observer.observe(el));
+    animatedElements.forEach(el => observer.observe(el));
+    
+    // Parallax effect for hero section
+    const hero = document.querySelector('.hero');
+    if (hero && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = hero.querySelector('.hero-content');
+            if (parallax) {
+                // Limit the transform to avoid massive shifts off-screen
+                if (scrolled < window.innerHeight) {
+                    parallax.style.transform = `translateY(${scrolled * 0.3}px)`;
+                    parallax.style.opacity = 1 - (scrolled / 500);
+                }
+            }
+        }, { passive: true });
+    }
 }
 
 // ===== FORM HANDLING =====
@@ -91,6 +135,8 @@ function initFormHandling() {
         // File input styling
         const fileInputs = form.querySelectorAll('input[type="file"]');
         fileInputs.forEach(input => {
+            if (input.parentNode.classList.contains('file-input-wrapper')) return; // Prevent double wrapping
+
             const wrapper = document.createElement('div');
             wrapper.className = 'file-input-wrapper';
             
@@ -117,46 +163,82 @@ function initFormHandling() {
     });
 }
 
-// ===== SMOOTH SCROLL FOR ANCHOR LINKS =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href === '#') return;
-        
-        const target = document.querySelector(href);
-        if (target) {
-            e.preventDefault();
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
+// ===== SMOOTH SCROLL =====
+function initSmoothScroll() {
+    // Native smooth scroll is preferred
+    document.documentElement.style.scrollBehavior = 'smooth';
 
-// ===== LAZY LOADING IMAGES =====
-if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                if (img.dataset.src) {
-                    img.src = img.dataset.src;
-                    img.removeAttribute('data-src');
-                }
-                observer.unobserve(img);
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === '#') return;
+            
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
             }
         });
     });
+}
+
+// ===== IMAGE OPTIMIZATION (Lazy Loading & Wrappers) =====
+function initImageOptimization() {
+    // Lazy loading observer
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                    }
+                    observer.unobserve(img);
+                }
+            });
+        });
+        
+        document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+            imageObserver.observe(img);
+        });
+    }
     
-    document.querySelectorAll('img[loading="lazy"]').forEach(img => {
-        imageObserver.observe(img);
+    // Add wrappers for styling if not present
+    const images = document.querySelectorAll('img[loading="lazy"]');
+    images.forEach(img => {
+        if (img.parentElement.classList.contains('image-wrapper')) return;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'image-wrapper';
+        // Style should be in CSS, but keeping inline backup if CSS fails or for specific override
+        wrapper.style.cssText = `
+            position: relative;
+            overflow: hidden;
+            background: #1a1a1a;
+        `;
+        
+        img.parentNode.insertBefore(wrapper, img);
+        wrapper.appendChild(img);
+        
+        // Add error handling
+        img.addEventListener('error', function() {
+            this.style.opacity = '0.5';
+            this.alt = 'Image failed to load';
+        });
     });
 }
 
 // ===== INTERACTIVE BACKGROUND EFFECTS =====
 function initInteractiveBackground() {
-    // Create interactive background canvas
+    // Check for reduced motion preference
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+    }
+
     const canvas = document.createElement('canvas');
     canvas.id = 'interactive-bg';
     canvas.style.position = 'fixed';
@@ -167,7 +249,6 @@ function initInteractiveBackground() {
     canvas.style.pointerEvents = 'none';
     canvas.style.zIndex = '0';
     canvas.style.opacity = '0.6';
-    canvas.style.pointerEvents = 'none'; // Don't block clicks
     document.body.appendChild(canvas);
     
     const ctx = canvas.getContext('2d');
@@ -175,6 +256,7 @@ function initInteractiveBackground() {
     let mouseY = 0;
     let particles = [];
     const particleCount = 50;
+    let animationFrameId;
     
     // Resize canvas
     function resizeCanvas() {
@@ -276,7 +358,7 @@ function initInteractiveBackground() {
             }
         }
         
-        requestAnimationFrame(animate);
+        animationFrameId = requestAnimationFrame(animate);
     }
     
     animate();
@@ -297,106 +379,6 @@ function initInteractiveBackground() {
     `;
     gridOverlay.style.backgroundSize = '50px 50px';
     document.body.appendChild(gridOverlay);
-}
-
-// ===== ADVANCED FEATURES =====
-function initAdvancedFeatures() {
-    // Parallax effect for hero section
-    const hero = document.querySelector('.hero');
-    if (hero) {
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallax = hero.querySelector('.hero-content');
-            if (parallax) {
-                parallax.style.transform = `translateY(${scrolled * 0.3}px)`;
-                parallax.style.opacity = 1 - (scrolled / 500);
-            }
-        });
-    }
-    
-    // Intersection Observer for advanced animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-    
-    // Observe all fade-in elements
-    document.querySelectorAll('.fade-in').forEach(el => {
-        observer.observe(el);
-    });
-}
-
-// ===== IMAGE OPTIMIZATION WITH BLUR-UP =====
-function initImageOptimization() {
-    const images = document.querySelectorAll('img[loading="lazy"]');
-    
-    images.forEach(img => {
-        // Create blur placeholder
-        const wrapper = document.createElement('div');
-        wrapper.className = 'image-wrapper';
-        wrapper.style.cssText = `
-            position: relative;
-            overflow: hidden;
-            background: #1a1a1a;
-        `;
-        
-        img.parentNode.insertBefore(wrapper, img);
-        wrapper.appendChild(img);
-        
-        // Add error handling
-        img.addEventListener('error', function() {
-            this.style.opacity = '0.5';
-            this.alt = 'Image failed to load';
-        });
-    });
-}
-
-// ===== SMOOTH SCROLL WITH EASING =====
-function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href === '#') return;
-            
-            const target = document.querySelector(href);
-            if (target) {
-                e.preventDefault();
-                
-                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - 80;
-                const startPosition = window.pageYOffset;
-                const distance = targetPosition - startPosition;
-                const duration = 800;
-                let start = null;
-                
-                function easeInOutCubic(t) {
-                    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-                }
-                
-                function animation(currentTime) {
-                    if (start === null) start = currentTime;
-                    const timeElapsed = currentTime - start;
-                    const progress = Math.min(timeElapsed / duration, 1);
-                    
-                    window.scrollTo(0, startPosition + distance * easeInOutCubic(progress));
-                    
-                    if (timeElapsed < duration) {
-                        requestAnimationFrame(animation);
-                    }
-                }
-                
-                requestAnimationFrame(animation);
-            }
-        });
-    });
 }
 
 // ===== MICRO-INTERACTIONS =====
@@ -431,42 +413,5 @@ function initMicroInteractions() {
             setTimeout(() => ripple.remove(), 600);
         });
     });
-    
-    // Add ripple animation
-    if (!document.querySelector('#ripple-styles')) {
-        const style = document.createElement('style');
-        style.id = 'ripple-styles';
-        style.textContent = `
-            @keyframes ripple {
-                to {
-                    transform: scale(4);
-                    opacity: 0;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-    
-    // Card tilt effect on hover
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
-        card.addEventListener('mousemove', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = (y - centerY) / 10;
-            const rotateY = (centerX - x) / 10;
-            
-            this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = '';
-        });
-    });
+    // Removed style injection; keyframes moved to CSS
 }
-

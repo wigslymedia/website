@@ -12,6 +12,8 @@ test.describe('Navigation Tests', () => {
   });
 
   test('should navigate to Contact page', async ({ page }) => {
+    // Wait for loader to disappear
+    await page.waitForSelector('.page-loader', { state: 'hidden' });
     await page.click('nav a[href="contact.html"]');
     await expect(page).toHaveURL(/.*contact.html/);
     await expect(page.locator('h1')).toContainText('Contact');

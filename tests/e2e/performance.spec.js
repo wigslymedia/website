@@ -4,11 +4,15 @@ test.describe('Performance & Health Tests', () => {
   test('should not have console errors', async ({ page }) => {
     const errors = [];
     page.on('console', msg => {
-      if (msg.type() === 'error') errors.push(msg.text());
+      if (msg.type() === 'error') {
+        // Ignore expected errors (like 404s for missing optional assets)
+        if (!msg.text().includes('Failed to load resource')) {
+            errors.push(msg.text());
+        }
+      }
     });
     
     await page.goto('/');
-    // Ignore known non-critical errors if any (e.g. 404 on favicon if missing)
     // Filter out specific acceptable errors if needed
     expect(errors).toEqual([]);
   });

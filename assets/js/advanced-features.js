@@ -45,37 +45,11 @@ function initPerformanceMonitoring() {
     });
 }
 
-// ===== ADVANCED SCROLL EFFECTS =====
-function initAdvancedScrollEffects() {
-    let lastScrollTop = 0;
-    const nav = document.querySelector('.nav');
-    
-    window.addEventListener('scroll', () => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        // Hide/show nav on scroll
-        if (scrollTop > lastScrollTop && scrollTop > 100) {
-            nav.style.transform = 'translateY(-100%)';
-        } else {
-            nav.style.transform = 'translateY(0)';
-        }
-        
-        lastScrollTop = scrollTop;
-        
-        // Parallax for hero
-        const hero = document.querySelector('.hero');
-        if (hero && scrollTop < window.innerHeight) {
-            const heroContent = hero.querySelector('.hero-content');
-            if (heroContent) {
-                heroContent.style.transform = `translateY(${scrollTop * 0.3}px)`;
-                heroContent.style.opacity = 1 - (scrollTop / 600);
-            }
-        }
-    }, { passive: true });
-}
-
 // ===== CURSOR EFFECTS =====
 function initCursorEffects() {
+    // Disable custom cursor if reduced motion is preferred
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     if (window.innerWidth > 768) {
         const cursor = document.createElement('div');
         cursor.className = 'custom-cursor';
@@ -131,13 +105,10 @@ if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         initServiceWorker();
         initPerformanceMonitoring();
-        initAdvancedScrollEffects();
         initCursorEffects();
     });
 } else {
     initServiceWorker();
     initPerformanceMonitoring();
-    initAdvancedScrollEffects();
     initCursorEffects();
 }
-

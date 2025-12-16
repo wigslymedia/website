@@ -19,6 +19,11 @@ function initPageTransitions() {
             if (this.classList.contains('gallery-item')) {
                 return;
             }
+
+            // Skip if modifier keys are pressed (Command, Control, Shift, Alt)
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+                return;
+            }
             
             e.preventDefault();
             
