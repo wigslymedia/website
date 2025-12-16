@@ -8,7 +8,35 @@ document.addEventListener('DOMContentLoaded', () => {
     initImageOptimization();
     initSmoothScroll();
     initMicroInteractions();
+    initServiceWorker();
+    
+    // Remove loading screen immediately on load
+    const loader = document.querySelector('.page-loader');
+    if (loader) {
+        // Force minimum load time of 500ms to prevent flash
+        setTimeout(() => {
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+                document.body.classList.remove('loading');
+                document.body.style.overflow = '';
+            }, 500);
+        }, 500);
+    }
 });
+
+// ===== SERVICE WORKER REGISTRATION =====
+function initServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js')
+            .then((registration) => {
+                console.log('Service Worker registered:', registration);
+            })
+            .catch((error) => {
+                console.log('Service Worker registration failed:', error);
+            });
+    }
+}
 
 // ===== NAVIGATION =====
 function initNavigation() {
