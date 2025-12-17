@@ -179,7 +179,8 @@ function initScrollAnimations() {
                 // Limit the transform to avoid massive shifts off-screen
                 if (scrolled < window.innerHeight) {
                     parallax.style.transform = `translateY(${scrolled * 0.3}px)`;
-                    parallax.style.opacity = 1 - (scrolled / 500);
+                    // Slower fade out: fully transparent only when nearly scrolled out of view
+                    parallax.style.opacity = 1 - (scrolled / (window.innerHeight * 0.9));
                 }
             }
         }, { passive: true });
