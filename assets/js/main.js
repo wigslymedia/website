@@ -2,6 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
+    initTypingEffect(); // Add typing effect
     initScrollAnimations(); // Consolidated fade-in/slide-up animations
     initFormHandling();
     initInteractiveBackground();
@@ -102,6 +103,45 @@ function initNavigation() {
         window.addEventListener('scroll', updateNav, { passive: true });
         updateNav(); // Init on load
     }
+}
+
+// ===== TYPING EFFECT =====
+function initTypingEffect() {
+    const typingElement = document.querySelector('.typing-text');
+    if (!typingElement) return;
+
+    const words = ["Music Videos", "Wedding Videos", "Event Photography", "Commercials", "Creative Direction"];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typeSpeed = 100;
+
+    function type() {
+        const currentWord = words[wordIndex];
+        
+        if (isDeleting) {
+            typingElement.textContent = currentWord.substring(0, charIndex - 1);
+            charIndex--;
+            typeSpeed = 50; // Faster when deleting
+        } else {
+            typingElement.textContent = currentWord.substring(0, charIndex + 1);
+            charIndex++;
+            typeSpeed = 100; // Normal typing speed
+        }
+
+        if (!isDeleting && charIndex === currentWord.length) {
+            isDeleting = true;
+            typeSpeed = 2000; // Pause at end of word
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+            typeSpeed = 500; // Pause before typing next word
+        }
+
+        setTimeout(type, typeSpeed);
+    }
+
+    type();
 }
 
 // ===== SCROLL ANIMATIONS (Consolidated) =====
