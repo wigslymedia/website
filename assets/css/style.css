@@ -1129,21 +1129,21 @@ section {
     
     .nav-links {
         display: none;
-        position: fixed; /* Changed from absolute to fixed */
-        top: 0; /* Cover the whole screen */
+        position: fixed;
+        top: 0;
         left: 0;
         right: 0;
-        bottom: 0; /* Ensure full height */
-        background: rgba(0, 0, 0, 0.98);
-        backdrop-filter: blur(10px);
-        flex-direction: column;
-        padding: 6rem 2rem 2rem; /* Add top padding to clear logo/toggle */
-        gap: 2rem;
-        border-bottom: none; /* Remove border */
+        bottom: 0;
+        width: 100%;
         height: 100vh;
+        background-color: #000000; /* Solid black for better readability */
+        flex-direction: column;
+        padding: 8rem 2rem 2rem; /* Increased top padding */
+        gap: 2.5rem;
+        border-bottom: none;
         align-items: center;
-        justify-content: flex-start; /* Start from top-ish */
-        z-index: 999; /* Below toggle button but above content */
+        justify-content: flex-start;
+        z-index: 999;
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s ease;
@@ -1153,6 +1153,12 @@ section {
         display: flex;
         opacity: 1;
         pointer-events: all;
+    }
+
+    .nav-links a {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--color-white);
     }
     
     /* Ensure toggle stays on top of the menu */
