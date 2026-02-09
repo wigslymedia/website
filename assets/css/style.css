@@ -1510,8 +1510,8 @@ section {
 }
 
 .author-avatar {
-    width: 46px;
-    height: 46px;
+    width: 64px;
+    height: 64px;
     background: linear-gradient(135deg, var(--accent-orange), var(--accent-orange-dark));
     color: var(--color-white);
     border-radius: 50%;
@@ -1522,6 +1522,19 @@ section {
     font-size: 1rem;
     flex-shrink: 0;
     box-shadow: 0 4px 12px rgba(255, 102, 0, 0.25);
+    overflow: hidden;
+}
+
+.author-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.author-avatar:has(img) {
+    background: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .author-info h4 {
