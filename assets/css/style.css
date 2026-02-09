@@ -1338,6 +1338,18 @@ section {
     gap: 1.5rem;
 }
 
+/* Single column on mobile (must come after default 2-col rule) */
+@media (max-width: 768px) {
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .testimonial-card {
+        padding: 1.5rem;
+    }
+}
+
 /* 4-column grid at very large screens (1600px+) */
 @media (min-width: 1600px) {
     .testimonials-section .container {
