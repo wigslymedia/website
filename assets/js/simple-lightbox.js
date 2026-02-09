@@ -91,6 +91,13 @@
         
         currentIndex = index;
         
+        // Force position: fixed to override any CSS conflicts
+        lightbox.style.position = 'fixed';
+        lightbox.style.top = '0';
+        lightbox.style.left = '0';
+        lightbox.style.width = '100%';
+        lightbox.style.height = '100%';
+        
         // Show lightbox first to ensure elements are visible
         lightbox.classList.add('active');
         lightbox.style.display = 'flex'; // Force flex via JS just in case

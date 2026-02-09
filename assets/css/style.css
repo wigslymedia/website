@@ -142,7 +142,7 @@ body.loading {
 }
 
 /* Ensure content is above background effects */
-body > *:not(#interactive-bg):not(.page-loader) {
+body > *:not(#interactive-bg):not(.page-loader):not(#lightbox) {
     position: relative;
     z-index: 10;
 }

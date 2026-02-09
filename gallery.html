@@ -18,7 +18,7 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=2">
 </head>
 <body>
     <!-- Navigation -->
@@ -205,7 +205,7 @@
     </section>
 
     <!-- Lightbox -->
-    <div class="lightbox" id="lightbox">
+    <div class="lightbox" id="lightbox" style="position: fixed !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important;">
         <div class="lightbox-content">
             <button class="lightbox-close" aria-label="Close">&times;</button>
             <button class="lightbox-nav lightbox-prev" aria-label="Previous image">&#10094;</button>
@@ -258,9 +258,32 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/gallery-filter.js"></script>
-    <script src="assets/js/simple-lightbox.js"></script>
+    <script>
+        // Force lightbox positioning fix - override any CSS conflicts
+        document.addEventListener('DOMContentLoaded', function() {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox) {
+                // Override the click handler to ensure position is set
+                const originalOpenLightbox = window.openLightboxByIndex;
+                window.openLightboxByIndex = function(index) {
+                    // Force position: fixed before opening
+                    lightbox.style.setProperty('position', 'fixed', 'important');
+                    lightbox.style.setProperty('top', '0', 'important');
+                    lightbox.style.setProperty('left', '0', 'important');
+                    lightbox.style.setProperty('width', '100%', 'important');
+                    lightbox.style.setProperty('height', '100%', 'important');
+                    
+                    // Call original function if it exists
+                    if (originalOpenLightbox) {
+                        originalOpenLightbox(index);
+                    }
+                };
+            }
+        });
+    </script>
+    <script src="assets/js/main.js?v=2025011701"></script>
+    <script src="assets/js/gallery-filter.js?v=2025011701"></script>
+    <script src="assets/js/simple-lightbox.js?v=2025011701"></script>
 </body>
 </html>
 
