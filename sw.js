@@ -1,38 +1,33 @@
 // Service Worker for PWA and Performance
-const CACHE_NAME = 'portfolio-v1';
-const urlsToCache = [
-    '/',
-    '/index.html',
-    '/gallery.html',
-    '/contact.html',
-    '/assets/css/style.css',
-    '/assets/js/main.js',
-    '/assets/images/logo.png',
-    '/favicon.svg'
-];
+const CACHE_NAME = 'portfolio-v2';
 
-// Install event - cache resources
+// Install event - activate immediately
 self.addEventListener('install', (event) => {
-    event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then((cache) => {
-                return cache.addAll(urlsToCache);
-            })
-    );
+    self.skipWaiting();
 });
 
-// Fetch event - serve from cache, fallback to network
+// Fetch event - network first, cache fallback
 self.addEventListener('fetch', (event) => {
     event.respondWith(
-        caches.match(event.request)
+        fetch(event.request)
             .then((response) => {
-                // Return cached version or fetch from network
-                return response || fetch(event.request);
+                // Cache a copy of successful responses
+                if (response.ok) {
+                    const responseClone = response.clone();
+                    caches.open(CACHE_NAME).then((cache) => {
+                        cache.put(event.request, responseClone);
+                    });
+                }
+                return response;
+            })
+            .catch(() => {
+                // Offline fallback - serve from cache
+                return caches.match(event.request);
             })
     );
 });
 
-// Activate event - clean up old caches
+// Activate event - clean up old caches and take control
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         caches.keys().then((cacheNames) => {
@@ -43,6 +38,8 @@ self.addEventListener('activate', (event) => {
                     }
                 })
             );
+        }).then(() => {
+            return self.clients.claim();
         })
     );
 });
