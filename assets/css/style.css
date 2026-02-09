@@ -1366,6 +1366,60 @@ section {
     margin: 0;
 }
 
+/* Testimonial truncation styles */
+.testimonial-text {
+    position: relative;
+    max-height: 4.5rem;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.testimonial-text.expanded {
+    max-height: none;
+}
+
+.testimonial-excerpt {
+    display: block;
+    line-height: 1.5;
+}
+
+.testimonial-full {
+    display: none;
+    line-height: 1.5;
+}
+
+.testimonial-text.expanded .testimonial-excerpt {
+    display: none;
+}
+
+.testimonial-text.expanded .testimonial-full {
+    display: block;
+}
+
+.testimonial-toggle {
+    background: none;
+    border: 1px solid var(--accent-orange);
+    color: var(--accent-orange);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.testimonial-toggle:hover {
+    background: var(--accent-orange);
+    color: var(--color-white);
+    transform: translateY(-2px);
+}
+
+.testimonial-toggle:focus {
+    outline: 2px solid var(--accent-orange);
+    outline-offset: 2px;
+}
+
 /* ===== HERO TYPING EFFECT ===== */
 .hero-typing-container {
     height: 3rem; /* Fixed height to prevent layout shift */

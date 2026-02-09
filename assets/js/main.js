@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScroll();
     initMicroInteractions();
     initServiceWorker();
+    initTestimonialToggles();
     
     // Remove loading screen immediately on load
     const loader = document.querySelector('.page-loader');
@@ -483,4 +484,24 @@ function initMicroInteractions() {
         });
     });
     // Removed style injection; keyframes moved to CSS
+}
+
+// ===== TESTIMONIAL TOGGLES =====
+function initTestimonialToggles() {
+    const toggleButtons = document.querySelectorAll('.testimonial-toggle');
+    
+    toggleButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const testimonialText = this.previousElementSibling;
+            const isExpanded = testimonialText.classList.contains('expanded');
+            
+            if (isExpanded) {
+                testimonialText.classList.remove('expanded');
+                this.textContent = 'Read More';
+            } else {
+                testimonialText.classList.add('expanded');
+                this.textContent = 'Read Less';
+            }
+        });
+    });
 }
