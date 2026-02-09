@@ -1544,8 +1544,8 @@ section {
 }
 
 .author-avatar--zoom img {
-    transform: scale(1.35);
-    object-position: center 38%;
+    transform: scale(1.65);
+    object-position: center 32%;
 }
 
 .author-info h4 {
