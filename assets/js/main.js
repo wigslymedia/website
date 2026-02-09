@@ -488,20 +488,84 @@ function initMicroInteractions() {
 
 // ===== TESTIMONIAL TOGGLES =====
 function initTestimonialToggles() {
-    const toggleButtons = document.querySelectorAll('.testimonial-toggle');
+    // Collapsed height in px (matches ~7.5em at default font size)
+    const COLLAPSED_HEIGHT = 120;
     
-    toggleButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const testimonialText = this.previousElementSibling;
-            const isExpanded = testimonialText.classList.contains('expanded');
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    
+    testimonialCards.forEach(card => {
+        const textEl = card.querySelector('.testimonial-text');
+        const toggleBtn = card.querySelector('.testimonial-toggle');
+        
+        if (!textEl) return;
+        
+        // Check if text needs truncation and Read More
+        requestAnimationFrame(() => {
+            const excerpt = textEl.querySelector('.testimonial-excerpt');
+            const full = textEl.querySelector('.testimonial-full');
+            const hasDifferentContent = excerpt && full && 
+                excerpt.textContent.trim() !== full.textContent.trim();
             
-            if (isExpanded) {
-                testimonialText.classList.remove('expanded');
-                this.textContent = 'Read More';
+            if (!hasDifferentContent) {
+                // Excerpt and full are the same — always show full text, no toggle
+                if (toggleBtn) toggleBtn.style.display = 'none';
+                textEl.classList.add('expanded');
+                textEl.classList.add('no-truncate');
             } else {
-                testimonialText.classList.add('expanded');
-                this.textContent = 'Read Less';
+                // Set collapsed max-height via JS for reliable transitions
+                textEl.style.maxHeight = COLLAPSED_HEIGHT + 'px';
             }
         });
+        
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', function() {
+                const isExpanded = textEl.classList.contains('expanded');
+                
+                if (isExpanded) {
+                    // COLLAPSE
+                    // 1. Lock current expanded height
+                    const currentHeight = textEl.scrollHeight;
+                    textEl.style.maxHeight = currentHeight + 'px';
+                    textEl.offsetHeight; // Force reflow
+                    
+                    // 2. Switch back to excerpt content
+                    textEl.classList.remove('expanded');
+                    
+                    // 3. Animate to collapsed height
+                    textEl.style.maxHeight = COLLAPSED_HEIGHT + 'px';
+                    
+                    this.textContent = 'Read More';
+                    this.setAttribute('aria-expanded', 'false');
+                    
+                    // Scroll card into view after collapse finishes
+                    setTimeout(() => {
+                        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 450);
+                    
+                } else {
+                    // EXPAND
+                    // 1. Switch to full content (still at collapsed max-height)
+                    textEl.classList.add('expanded');
+                    
+                    // 2. Measure the full content height
+                    const targetHeight = textEl.scrollHeight;
+                    
+                    // 3. Animate from collapsed to full height
+                    textEl.style.maxHeight = targetHeight + 'px';
+                    
+                    // 4. After transition, set max-height to none for flexibility
+                    const onEnd = () => {
+                        if (textEl.classList.contains('expanded')) {
+                            textEl.style.maxHeight = 'none';
+                        }
+                        textEl.removeEventListener('transitionend', onEnd);
+                    };
+                    textEl.addEventListener('transitionend', onEnd);
+                    
+                    this.textContent = 'Read Less';
+                    this.setAttribute('aria-expanded', 'true');
+                }
+            });
+        }
     });
 }
