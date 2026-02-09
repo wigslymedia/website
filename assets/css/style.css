@@ -1561,6 +1561,18 @@ section {
 }
 
 /* ===== VIDEO SHOWCASE ===== */
+.video-section-heading {
+    color: var(--accent-orange);
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-orange);
+    display: inline-block;
+}
+
 .video-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
